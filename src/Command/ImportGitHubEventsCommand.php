@@ -34,13 +34,7 @@ class ImportGitHubEventsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $query = $input->getArgument('query');
-        try {
-            $this->importGitHubEvents->setQuery($query);
-        } catch (\Throwable $exception) {
-            $output->writeln($exception->getMessage());
-
-            return Command::FAILURE;
-        }
+        $this->importGitHubEvents->setQuery($query);
         $this->importGitHubEvents->execute();
 
         $output->writeln("Events of $query successfully imported.");

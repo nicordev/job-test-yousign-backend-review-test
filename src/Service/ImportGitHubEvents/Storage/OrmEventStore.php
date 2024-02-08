@@ -2,14 +2,19 @@
 
 namespace App\Service\ImportGitHubEvents\Storage;
 
-use Doctrine\ORM\EntityManager;
+use App\Entity\Event;
+use Doctrine\ORM\EntityManagerInterface;
 
 class OrmEventStore implements EventStore
 {
-    public function __construct(private EntityManager $entityManager)
-    {
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+    ) {
     }
 
+    /**
+     * @param array<Event> $events
+     */
     public function storeEvents(array $events): void
     {
         foreach ($events as $event) {

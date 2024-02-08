@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Tests\Unit\Transformer;
+namespace App\Tests\Unit\Service\ImportGitHubEvents\Transformer;
 
 use App\Entity\Event;
 use App\Service\ImportGitHubEvents\Transformer\GHArchivesEventsTransformer;
 use PHPUnit\Framework\TestCase;
 
-class GHArchivesEventsProviderTest extends TestCase
+class GHArchivesEventsTransformerTest extends TestCase
 {
     public function testCanTransformGHArchivesEvents(): void
     {

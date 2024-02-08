@@ -1,17 +1,14 @@
 <?php
 
-namespace App\Tests\Unit\Provider;
+namespace App\Tests\Unit\Service\ImportGitHubEvents\Storage;
 
 use App\Entity\Actor;
 use App\Entity\Event;
+use App\Entity\EventType;
 use App\Entity\Repo;
+use App\Service\ImportGitHubEvents\Storage\OrmEventStore;
 use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
-use App\Tests\InMemory\FakeResponse;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use App\Service\ImportGitHubEvents\Storage\OrmEventStore;
-use App\Service\ImportGitHubEvents\Provider\GHArchivesEventsProvider;
-use DateTimeImmutable;
 
 class OrmEventStoreTest extends TestCase
 {
@@ -30,11 +27,11 @@ class OrmEventStoreTest extends TestCase
         );
         $event = new Event(
             id: 123,
-            type: 'COMMENT',
+            type: EventType::COMMIT,
             actor: $actor,
             repo: $repo,
             payload: [],
-            createAt: new DateTimeImmutable('2024-01-01 12:13:05'),
+            createAt: new \DateTimeImmutable('2024-01-01 12:13:05'),
             comment: null,
         );
         $fakeEntityManager = $this->createMock(EntityManager::class);

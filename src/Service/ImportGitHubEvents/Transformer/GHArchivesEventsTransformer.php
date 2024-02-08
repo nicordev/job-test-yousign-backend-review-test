@@ -11,6 +11,9 @@ use App\Entity\Repo;
 
 class GHArchivesEventsTransformer
 {
+    private array $repos = [];
+    private array $actors = [];
+
     public function transformToEvents(array $archivesEvents): array
     {
         $events = [];
@@ -32,17 +35,8 @@ class GHArchivesEventsTransformer
             $events[] = new Event(
                 id: (int) $event['id'],
                 type: $type,
-                actor: new Actor(
-                    id: $event['actor']['id'],
-                    login: $event['actor']['login'],
-                    url: $event['actor']['url'],
-                    avatarUrl: $event['actor']['avatar_url'],
-                ),
-                repo: new Repo(
-                    id: $event['repo']['id'],
-                    name: $event['repo']['name'],
-                    url: $event['repo']['url'],
-                ),
+                actor: $this->getActor($event['actor']),
+                repo: $this->getRepo($event['repo']),
                 payload: $event['payload'],
                 createAt: new \DateTimeImmutable($event['created_at']),
                 comment: null,
@@ -50,5 +44,42 @@ class GHArchivesEventsTransformer
         }
 
         return $events;
+    }
+
+    private function getRepo(array $repo): Repo
+    {
+        $repoId = $repo['id'];
+
+        if (\array_key_exists($repoId, $this->repos)) {
+            return $this->repos[$repoId];
+        }
+
+        $repo = new Repo(
+            id: $repo['id'],
+            name: $repo['name'],
+            url: $repo['url'],
+        );
+        $this->repos[$repoId] = $repo;
+
+        return $repo;
+    }
+
+    private function getActor(array $actor): Actor
+    {
+        $actorId = $actor['id'];
+
+        if (\array_key_exists($actorId, $this->actors)) {
+            return $this->actors[$actorId];
+        }
+
+        $actor = new Actor(
+            id: $actor['id'],
+            login: $actor['login'],
+            url: $actor['url'],
+            avatarUrl: $actor['avatar_url'],
+        );
+        $this->actors[$actorId] = $actor;
+
+        return $actor;
     }
 }

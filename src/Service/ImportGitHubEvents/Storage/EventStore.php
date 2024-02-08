@@ -7,7 +7,7 @@ use App\Entity\Event;
 interface EventStore
 {
     /**
-     * @param array<Events> $events
+     * @param array<Event> $events
      */
     public function storeEvents(array $events): void;
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Tests\Unit\Provider;
+namespace App\Tests\Unit\Service\ImportGitHubEvents\Provider;
 
-use PHPUnit\Framework\TestCase;
 use App\Service\ImportGitHubEvents\Provider\GHArchivesEventsProvider;
 use App\Tests\InMemory\FakeResponse;
+use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class GHArchivesEventsProviderTest extends TestCase
@@ -14,10 +14,10 @@ class GHArchivesEventsProviderTest extends TestCase
         $client = $this->createMock(HttpClientInterface::class);
         $client->expects(self::once())
             ->method('request')
-            ->with('GET', "https://data.gharchive.org/2015-01-01-15.json.gz")
+            ->with('GET', 'https://data.gharchive.org/2015-01-01-15.json.gz')
             ->willReturn(
                 new FakeResponse(
-                    content: \file_get_contents(__DIR__.'/../../InMemory/data/2015-01-01-15.json.gz'),
+                    content: \file_get_contents(__DIR__.'/../../../../InMemory/data/2015-01-01-15.json.gz'),
                     statusCode: 200,
                 )
             )
