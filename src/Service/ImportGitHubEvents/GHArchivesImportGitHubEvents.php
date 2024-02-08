@@ -5,10 +5,21 @@ declare(strict_types=1);
 namespace App\Service\ImportGitHubEvents;
 
 use LogicException;
+use App\Repository\WriteEventRepository;
+use App\Service\ImportGitHubEvents\Storage\EventStore;
+use App\Service\ImportGitHubEvents\Provider\GHArchivesEventsProvider;
+use App\Service\ImportGitHubEvents\Transformer\GHArchivesEventsTransformer;
 
 final class GHArchivesImportGitHubEvents implements ImportGitHubEvents
 {
     private string $query;
+
+    public function __construct(
+        private GHArchivesEventsProvider $provider,
+        private GHArchivesEventsTransformer $transformer,
+        private EventStore $eventStore,
+    ) {
+    }
 
     public function setQuery(string $query): void
     {
@@ -20,5 +31,8 @@ final class GHArchivesImportGitHubEvents implements ImportGitHubEvents
 
     public function execute(): void
     {
+        $archivesEvents = $this->provider->fetch($this->query);
+        $events = $this->transformer->transformToEvents($archivesEvents);
+        $this->eventStore->storeEvents($events);
     }
 }

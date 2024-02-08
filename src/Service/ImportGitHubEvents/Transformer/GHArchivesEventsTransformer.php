@@ -9,7 +9,7 @@ use App\Entity\Event;
 use App\Entity\EventType;
 use App\Entity\Repo;
 
-final class GHArchivesEventsTransformer
+class GHArchivesEventsTransformer
 {
     public function transformToEvents(array $archivesEvents): array
     {
