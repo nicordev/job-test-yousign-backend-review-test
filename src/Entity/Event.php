@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
+ *
  * @ORM\Table(name="`event`",
  *    indexes={@ORM\Index(name="IDX_EVENT_TYPE", columns={"type"})}
  * )
@@ -16,7 +17,9 @@ class Event
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="bigint")
+     *
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private int $id;
@@ -33,12 +36,14 @@ class Event
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Actor", cascade={"persist"})
+     *
      * @ORM\JoinColumn(name="actor_id", referencedColumnName="id")
      */
     private Actor $actor;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Repo", cascade={"persist"})
+     *
      * @ORM\JoinColumn(name="repo_id", referencedColumnName="id")
      */
     private Repo $repo;

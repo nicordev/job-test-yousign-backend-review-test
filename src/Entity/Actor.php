@@ -8,13 +8,16 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
+ *
  * @ORM\Table(name="actor")
  */
 class Actor
 {
     /**
      * @ORM\Id
+     *
      * @ORM\Column(type="bigint")
+     *
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private int $id;
