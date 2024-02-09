@@ -3,11 +3,10 @@
 namespace App\Tests\Func;
 
 use App\DataFixtures\EventFixtures;
-use App\Entity\Event;
 use Doctrine\ORM\Tools\SchemaTool;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class EventControllerTest extends WebTestCase
 {
@@ -30,7 +29,7 @@ class EventControllerTest extends WebTestCase
         );
     }
 
-    public function testUpdateShouldReturnEmptyResponse()
+    public function testUpdateShouldReturnEmptyResponse(): void
     {
         $client = static::$client;
 
@@ -46,8 +45,7 @@ class EventControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(204);
     }
 
-
-    public function testUpdateShouldReturnHttpNotFoundResponse()
+    public function testUpdateShouldReturnHttpNotFoundResponse(): void
     {
         $client = static::$client;
 
@@ -63,9 +61,9 @@ class EventControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(404);
 
         $expectedJson = <<<JSON
-              {
-                "message":"Event identified by 7897897897 not found !"
-              }
+                {
+                    "message":"Event identified by 7897897897 not found !"
+                }
             JSON;
 
         self::assertJsonStringEqualsJsonString($expectedJson, $client->getResponse()->getContent());
@@ -74,7 +72,7 @@ class EventControllerTest extends WebTestCase
     /**
      * @dataProvider providePayloadViolations
      */
-    public function testUpdateShouldReturnBadRequest(string $payload, string $expectedResponse)
+    public function testUpdateShouldReturnBadRequest(string $payload, string $expectedResponse): void
     {
         $client = static::$client;
 
@@ -89,17 +87,15 @@ class EventControllerTest extends WebTestCase
 
         self::assertResponseStatusCodeSame(400);
         self::assertJsonStringEqualsJsonString($expectedResponse, $client->getResponse()->getContent());
-
     }
 
     public function providePayloadViolations(): iterable
     {
         yield 'comment too short' => [
             <<<JSON
-              {
-                "comment": "short"
-                
-            }
+                {
+                    "comment": "short"
+                }
             JSON,
             <<<JSON
                 {
