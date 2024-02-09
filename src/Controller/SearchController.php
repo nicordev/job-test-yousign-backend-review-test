@@ -11,15 +11,10 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class SearchController
 {
-    private ReadEventRepository $repository;
-    private SerializerInterface $serializer;
-
     public function __construct(
-        ReadEventRepository $repository,
-        SerializerInterface $serializer
+        private ReadEventRepository $repository,
+        private SerializerInterface $serializer
     ) {
-        $this->repository = $repository;
-        $this->serializer = $serializer;
     }
 
     /**

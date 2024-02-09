@@ -14,18 +14,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class EventController
 {
-    private WriteEventRepository $writeEventRepository;
-    private ReadEventRepository $readEventRepository;
-    private SerializerInterface $serializer;
-
     public function __construct(
-        WriteEventRepository $writeEventRepository,
-        ReadEventRepository $readEventRepository,
-        SerializerInterface $serializer
+        private WriteEventRepository $writeEventRepository,
+        private ReadEventRepository $readEventRepository,
+        private SerializerInterface $serializer
     ) {
-        $this->writeEventRepository = $writeEventRepository;
-        $this->readEventRepository = $readEventRepository;
-        $this->serializer = $serializer;
     }
 
     /**
@@ -33,6 +26,7 @@ class EventController
      */
     public function update(Request $request, int $id, ValidatorInterface $validator): Response
     {
+        /** @var EventInput */
         $eventInput = $this->serializer->deserialize($request->getContent(), EventInput::class, 'json');
 
         $errors = $validator->validate($eventInput);
