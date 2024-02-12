@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Webmozart\Assert\Assert;
 
 /**
  * @ORM\Entity()
@@ -70,7 +69,7 @@ class Event
         $this->createAt = $createAt;
         $this->comment = $comment;
 
-        if ($type === EventType::COMMIT) {
+        if (EventType::COMMIT === $type) {
             $this->count = $payload['size'] ?? 1;
         }
     }
@@ -83,6 +82,11 @@ class Event
     public function type(): string
     {
         return $this->type;
+    }
+
+    public function count(): int
+    {
+        return $this->count();
     }
 
     public function actor(): Actor
