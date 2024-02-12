@@ -17,12 +17,14 @@ class GHArchivesActorInput
     public string $login;
 
     /**
+     * @Assert\NotBlank
      * @Assert\Url
      */
     public string $url;
 
     /**
+     * @Assert\NotBlank
      * @Assert\Url
      */
-    public string $avatarUrl;
+    public string $avatar_url;
 }

@@ -42,7 +42,7 @@ class GHArchivesEventsTransformer
                 actor: $this->getActor($event->actor),
                 repo: $this->getRepo($event->repo),
                 payload: $event->payload,
-                createAt: new \DateTimeImmutable($event->createdAt),
+                createAt: new \DateTimeImmutable($event->created_at),
                 comment: null,
             );
         }
@@ -115,7 +115,7 @@ class GHArchivesEventsTransformer
             id: $actorId,
             login: $actor->login,
             url: $actor->url,
-            avatarUrl: $actor->avatarUrl,
+            avatarUrl: $actor->avatar_url,
         );
         $this->actors[$actorId] = $actor;
 

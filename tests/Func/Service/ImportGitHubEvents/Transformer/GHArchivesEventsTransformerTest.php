@@ -49,7 +49,7 @@ class GHArchivesEventsTransformerTest extends KernelTestCase
         $actorInput->id = 123;
         $actorInput->login = 'petroav';
         $actorInput->url = 'https://api.github.com/users/petroav';
-        $actorInput->avatarUrl = "https://avatars.githubusercontent.com/u/665991?";
+        $actorInput->avatar_url = "https://avatars.githubusercontent.com/u/665991?";
 
         $repoInput = new GHArchivesRepoInput();
         $repoInput->id = 456;
@@ -58,7 +58,7 @@ class GHArchivesEventsTransformerTest extends KernelTestCase
 
         $eventInput = new GHArchivesEventInput();
         $eventInput->id = '789';
-        $eventInput->createdAt = '2015-01-01T15:00:00Z';
+        $eventInput->created_at = '2015-01-01T15:00:00Z';
         $eventInput->type = 'PushEvent';
         $eventInput->payload = ["ref" => "master"];
         $eventInput->actor = $actorInput;
@@ -73,7 +73,7 @@ class GHArchivesEventsTransformerTest extends KernelTestCase
         $actorInput->id = -1;
         $actorInput->login = '';
         $actorInput->url = 'ola';
-        $actorInput->avatarUrl = "zog";
+        $actorInput->avatar_url = "zog";
 
         $repoInput = new GHArchivesRepoInput();
         $repoInput->id = 456;
@@ -82,7 +82,7 @@ class GHArchivesEventsTransformerTest extends KernelTestCase
 
         $eventInput = new GHArchivesEventInput();
         $eventInput->id = '789';
-        $eventInput->createdAt = '2015-01-01T15:00:00Z';
+        $eventInput->created_at = '2015-01-01T15:00:00Z';
         $eventInput->type = 'PushEvent';
         $eventInput->payload = ["ref" => "master"];
         $eventInput->actor = $actorInput;

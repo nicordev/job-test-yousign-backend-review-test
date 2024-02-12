@@ -29,5 +29,5 @@ class GHArchivesEventInput
      * @Assert\NotBlank
      * @Assert\DateTime(format="Y-m-d\TH:i:sZ")
      */
-    public string $createdAt;
+    public ?string $created_at = null;
 }
